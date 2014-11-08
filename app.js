@@ -1,5 +1,7 @@
 var express = require('express');
 var app = new express();
+var ejs = require("ejs");
+var router = require('./router');
 
 app.configure(function(){
 	app.use(express.static(__dirname+'/www'));
@@ -18,38 +20,20 @@ app.configure(function(){
 	app.use(app.router);//open router
 });
 
-/**
-*	Page redirect
-*/
-app.get('/login',function(req,res){res.redirect('/login.html')});
-app.get('/logout',function(req,res){req.session.logined = false; res.redirect('/login.html');});
 
-/** 
-* 	Router Handle
-* 	page check
-*/
-app.post('/loginnow',function(req,res){
-	if(req.body.username == "test" && req.body.password == "1234"){
-		req.session.logined = true;
-		res.redirect('/timeline');
-	}else{
-		//test form *res.send(req.body.username +"<br>" +  req.body.password);
-		res.redirect('/login.html?grenade=dead');
-	}
-});
+app.get('/login',router.Singin);
+app.get('/logout',router.Singout);
+app.get('/register',router.Register);
+app.get('/timeline',router.Timeline);
+app.get('/profile',router.Profile);
 
-app.get('/timeline',function(req,res){
-	if(req.session.logined){
-		res.send("Your Logined");
-	}else{
-		res.redirect('/login.html');
-	}
-});
-
+app.post('/login',router.POSTSingin);
+app.post('/register',router.POSTRegister);
 
 app.get('/',function(req,res){
-	res.render('index',{bot:"test"});
-	res.end();
+    console.log("OK!");
+    res.render('index',{bot:"test"});
+	//res.end(); Fuck You!
 });
 
-app.listen(80);
+app.listen(5555);

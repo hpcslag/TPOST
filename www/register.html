@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Register TPOST</title>
+  <script type="text/javascript">
+    var $ = function (sel){
+      return document.getElementById(sel);
+    }
+    function Check(){
+      if($("ps1").value == $("ps2").value && $("ps1").value.length > 5){
+        alert("OK!");
+        $("regs").submit();
+      }else{
+        alert("Please Recheck Your Password!");
+      }
+    }
+    if(window.location.search == "?grenade=dead")
+      alert("Username or Password Incorrent");
+  </script>
+  <link type="text/css" rel="stylesheet" href="" />
+</head>
+<body>
+  <noscript>Browser Not Support Javascript, Some features can not be used!</noscript>
+
+  <h1>Register</h1><br>
+  <form method="post" action="/register" id="regs">
+    Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" /><br>
+    Username:&nbsp;<input type="text" name="username" /><br>
+    Password:&nbsp;<input type="password" name="password" id="ps1" /><br>
+    Confirm Password: <input type="password" name="" id="ps2" />
+    <br>
+    <button type="button" onclick="Check()">OK! Register</button>
+  </form>
+</body>
+</html>
