@@ -31,7 +31,7 @@ var encode = require('./lib/encode');
 *   Tpost
 *   collections.POST{
 *       {_id:'8fdk29fkw29f3kl290',userName:'test',article:'To Day is Good Day',lastUpDate:'2014-5-1 - 18:20:21',disqus:
-*           [{userName:'lucy291',message:'I'd catch grenade for ya!'},{userName:'jytsp0101x64':'H87 sucks! using B85,Z97!'}]
+*           [{userName:'lucy291',message:'I'd catch grenade for ya!'},{userName:'jytsp0101x64',message:'H87 sucks! using B85,Z97!'}]
 *       }
 *
 *   }
