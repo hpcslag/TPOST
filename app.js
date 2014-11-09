@@ -20,16 +20,18 @@ app.configure(function(){
 	app.use(app.router);//open router
 });
 
-
+//Singup...
 app.get('/login',router.Singin);
 app.get('/logout',router.Singout);
 app.get('/register',router.Register);
-app.get('/timeline',router.Timeline);
-app.get('/profile',router.Profile);
-
 app.post('/login',router.POSTSingin);
 app.post('/register',router.POSTRegister);
 
+//after Singup...
+app.get('/timeline',router.Timeline);
+app.get('/profile',router.Profile);
+
+//default
 app.get('/',function(req,res){
     console.log("OK!");
     res.render('index',{bot:"test"});

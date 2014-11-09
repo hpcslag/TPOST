@@ -1,3 +1,6 @@
+var db = require('../lib/db');
+var md5 = require('./lin/md5');
+var encode = require('./lib/encode');
 /*
 *   Page Router Function
 *   
@@ -15,6 +18,35 @@
 *   Friends(req,res)
 *
 */
+
+/**
+*   Database
+*   
+*   UserLogin
+*   collections.USER{
+*       {_id:"25as5ds5d65s",userName:'test',password:'98cf36e1eb6bcdd7fb68f12e41029dcc',ProfileName:'test',friends:['tomyc','username','buffed']}
+*   }
+*
+*
+*   Tpost
+*   collections.POST{
+*       {_id:'8fdk29fkw29f3kl290',userName:'test',article:'To Day is Good Day',lastUpDate:'2014-5-1 - 18:20:21',disqus:
+*           [{userName:'lucy291',message:'I'd catch grenade for ya!'},{userName:'jytsp0101x64':'H87 sucks! using B85,Z97!'}]
+*       }
+*
+*   }
+*/
+
+/**
+*   Check and Be my friend!
+*   
+*   if i want be your friend, click button "+Add Friend lucy291 "
+*       lucy291 user will received friend invite
+*       if lucy291 click "+Add", xxx will be friend!
+*       if lucy291 didn't click "+Add", xxx of Friends Array can't update lucy291 friend!
+*   
+*/
+
 
 exports.Register = function(req,res){
     if(req.session.islogin){
