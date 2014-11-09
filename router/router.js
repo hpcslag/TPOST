@@ -1,7 +1,6 @@
 var mongojs = require('mongojs');
-var db = require('../lib/db');
-var md5 = require('./lin/md5');
-var encode = require('./lib/encode');
+var md5 = require('../lib/md5');
+var encode = require('../lib/encode');
 /*
 *   Page Router Function
 *   
@@ -20,9 +19,13 @@ var encode = require('./lib/encode');
 *
 */
 
-var db = mongojs('test',['table']);
+var db = mongojs('TPOST',['USER']);
 /**
-*   Database
+*   Database:
+*   
+*   TPOST
+*   
+*   Collections:
 *   
 *   UserLogin
 *   collections.USER{
@@ -82,7 +85,7 @@ exports.POSTSingin = function(req,res){
     *   Form POST in:
     *   in Filter to username and password -> username = encode.encode(req.body.username) -> password = md5(encode.encode(req.body.password))
     *   findOne({"userName":username,"password":password},function(err,doc){
-    *       if(err){
+    *       if(err || doc = null){
     *           res.redirect('/login.html?grenade=dead')
     *       }else{
     *           session.logined = true;
@@ -95,11 +98,23 @@ exports.POSTSingin = function(req,res){
     *
     *
     */
-    var username = encode.encode(req.body.username),
-        password = md5(encode.encode(req.body.password)),
+    var username = encode.encode(req.body.username.toLowerCase()),
+        password = md5(encode.encode(req.body.password.toLowerCase())),
         infoname = '';
     
+    db.USER.findOne({
+            query: { userName: username,password: password }
+        },function(err,doc){
+            if(err || doc == null){
+                res.redirect('/login.html?grenade=dead');
+            }else{
+                req.session.logined = true;
+                res.cookie('likename',doc.ProfileName,{maxAge: 900000, httpOnly: true});    
+                res.redirect('/timeline');
+            }
+    });
     
+    /* in static (no db debug)
     if(req.body.username == "test" && req.body.password == "1234"){
 		req.session.logined = true;
         //create username in cookie
@@ -109,11 +124,12 @@ exports.POSTSingin = function(req,res){
 		//test form *res.send(req.body.username +"<br>" +  req.body.password);
 		res.redirect('/login.html?grenade=dead');
 	}
-    
+    */
 }
 
 exports.Singout = function(req,res){
-    req.session.logined = false; res.redirect('/login.html');
+    req.session.logined = false;
+    res.redirect('/login.html');
 };
 
 exports.ForgetPassword = function(req,res){
