@@ -1,3 +1,4 @@
+var mongojs = require('mongojs');
 var db = require('../lib/db');
 var md5 = require('./lin/md5');
 var encode = require('./lib/encode');
@@ -19,6 +20,7 @@ var encode = require('./lib/encode');
 *
 */
 
+var db = mongojs('test',['table']);
 /**
 *   Database
 *   
@@ -75,6 +77,29 @@ exports.Singin = function(req,res){
 };
 
 exports.POSTSingin = function(req,res){
+    /**
+    *
+    *   Form POST in:
+    *   in Filter to username and password -> username = encode.encode(req.body.username) -> password = md5(encode.encode(req.body.password))
+    *   findOne({"userName":username,"password":password},function(err,doc){
+    *       if(err){
+    *           res.redirect('/login.html?grenade=dead')
+    *       }else{
+    *           session.logined = true;
+    *           info = findOne({"userName":username}).ProfileName
+    *           cookie('likename',info,) createCookie!
+    *           redirect('/timeline');
+    *       }});
+    *   
+    *
+    *
+    *
+    */
+    var username = encode.encode(req.body.username),
+        password = md5(encode.encode(req.body.password)),
+        infoname = '';
+    
+    
     if(req.body.username == "test" && req.body.password == "1234"){
 		req.session.logined = true;
         //create username in cookie
@@ -84,6 +109,7 @@ exports.POSTSingin = function(req,res){
 		//test form *res.send(req.body.username +"<br>" +  req.body.password);
 		res.redirect('/login.html?grenade=dead');
 	}
+    
 }
 
 exports.Singout = function(req,res){
