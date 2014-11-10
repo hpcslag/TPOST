@@ -29,7 +29,7 @@ app.post('/register',router.POSTRegister);
 
 //after Singup...
 app.get('/timeline',router.Timeline);
-app.get('/profile',router.Profile);
+app.get('/profile/:name',router.Profile);
 
 
 //default

@@ -133,10 +133,19 @@ exports.Singout = function(req,res){
 };
 
 exports.ForgetPassword = function(req,res){
-
+    
 };
 
 exports.Profile = function(req,res){
+    /**
+    *  Profile Feature
+    * 
+    *   Router:
+    *      if Login: GO TO User Profile (redirect()), using cookie!
+    *      Not login: Please Enter Username to Search User Profile!
+    *
+    *
+    */
     if(req.session.logined){	
         res.send("My Name: "+req.cookies.likename);
 	}else{
@@ -145,6 +154,17 @@ exports.Profile = function(req,res){
 };
 
 exports.Timeline = function(req,res){
+    /**
+    *   Timeline Feature
+    *
+    *   Page:
+    *       CheckLogin:
+    *           Render your page, can see all people article and everyone can commit it!
+    *
+    *       NotLogin:
+    *           redirect('login.html')
+    *
+    */
     if(req.session.logined){
 		res.send("Your Logined");
         console.log(req.cookies.likename + " is logined!");
@@ -158,13 +178,43 @@ exports.New_Article = function(req,res){
 };
 
 exports.Modify = function(req,res){
-
+    /**
+    *   Modify POST Feature <x>
+    *
+    *   NONE
+    *
+    *
+    */
 };
 
 exports.Disqus = function(req,res){
-
+    /**
+    *   Commit The Post Article
+    *
+    *   Render Article:
+    *       Article Author: Profil name->Jker <- href to profile
+    *       Article See Button, if click -> ajax and load number
+    *       Form and Commit:
+    *           form rel = async!!
+    *           Article JSON.commit array load foreach
+    *           if commit -> send post and update Page!
+    */
 };
 
 exports.Friends = function(req,res){
-
+    /**
+    *   frend feature
+    *
+    *   Check Friends Page
+    *   user: Jker
+    *       FindOne of 'Jker' User Friends Array!, Foreach Array Username,
+    *       Username + <a> to /user/Profile Page, ProfilePage using Username
+    *       //つづく
+    *
+    *
+    *
+    *
+    *
+    *
+    */
 };
