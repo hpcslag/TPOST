@@ -109,7 +109,7 @@ exports.POSTSingin = function(req,res){
                 res.redirect('/login.html?grenade=dead');
             }else{
                 req.session.logined = true;
-                res.cookie('likename',doc.ProfileName,{maxAge: 900000, httpOnly: true});    
+                res.cookie('likename',doc.ProfileName,{maxAge: new Date(Date.now() + 1000), httpOnly: true});    
                 res.redirect('/timeline');
             }
     });
@@ -128,23 +128,25 @@ exports.POSTSingin = function(req,res){
 }
 
 exports.Singout = function(req,res){
+    /*
+        set session => req.session.name = "xxxx"
+        set cookie  => res.cookie('cookiename','value',{xxx})
+        using session => req.session.name
+        using cookie = res.cookies.cookiename
+    */
     req.session.logined = false;
     res.redirect('/login.html');
 };
 
 exports.ForgetPassword = function(req,res){
-    
+    /*Security--*/
 };
 
 exports.Profile = function(req,res){
-    /**
-    *  Profile Feature
-    * 
-    *   Router:
-    *      if Login: GO TO User Profile (redirect()), using cookie!
-    *      Not login: Please Enter Username to Search User Profile!
-    *
-    *
+    /*
+        Avator using : Gravatar
+        User all post, in start load 8 post(Ajax)
+        now i don't want this feature!
     */
     if(req.session.logined){	
         res.send("My Name: "+req.cookies.likename);
@@ -154,19 +156,16 @@ exports.Profile = function(req,res){
 };
 
 exports.Timeline = function(req,res){
-    /**
-    *   Timeline Feature
-    *
-    *   Page:
-    *       CheckLogin:
-    *           Render your page, can see all people article and everyone can commit it!
-    *
-    *       NotLogin:
-    *           redirect('login.html')
-    *
+    /*
+        TwitPost in top
+        
+        Show Everyone Post load 15 post, (Ajax) using api RESTful Request!
+        but, now i don't want this feature!
+        Load all
     */
     if(req.session.logined){
-		res.send("Your Logined");
+		//res.send("Your Logined");
+        res.render('timeline',{});
         console.log(req.cookies.likename + " is logined!");
 	}else{
 		res.redirect('/login.html');
@@ -174,47 +173,24 @@ exports.Timeline = function(req,res){
 };
 
 exports.New_Article = function(req,res){
-    
+    /*
+        POST Method, 
+        Timeline post to New_Article(post), and handle to new article in database
+        
+        Article:
+            Title
+    */
+    //if(req.session.logined)
 };
 
 exports.Modify = function(req,res){
-    /**
-    *   Modify POST Feature <x>
-    *
-    *   NONE
-    *
-    *
-    */
+    
 };
 
 exports.Disqus = function(req,res){
-    /**
-    *   Commit The Post Article
-    *
-    *   Render Article:
-    *       Article Author: Profil name->Jker <- href to profile
-    *       Article See Button, if click -> ajax and load number
-    *       Form and Commit:
-    *           form rel = async!!
-    *           Article JSON.commit array load foreach
-    *           if commit -> send post and update Page!
-    */
+
 };
 
 exports.Friends = function(req,res){
-    /**
-    *   frend feature
-    *
-    *   Check Friends Page
-    *   user: Jker
-    *       FindOne of 'Jker' User Friends Array!, Foreach Array Username,
-    *       Username + <a> to /user/Profile Page, ProfilePage using Username
-    *       //つづく
-    *
-    *
-    *
-    *
-    *
-    *
-    */
+
 };
