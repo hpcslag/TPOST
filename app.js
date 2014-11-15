@@ -26,6 +26,7 @@ app.get('/logout',router.Singout);
 app.get('/register',router.Register);
 app.post('/login',router.POSTSingin);
 app.post('/register',router.POSTRegister);
+app.post('/New_Article',router.New_Article);
 
 //after Singup...
 app.get('/timeline',router.Timeline);

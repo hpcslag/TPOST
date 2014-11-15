@@ -3,13 +3,14 @@ var encode = require('../lib/encode');
 var md5 = require('../lib/md5');
 
 var mongojs = require('mongojs');
-var db = mongojs('TPOST',['USER']);
+var db = mongojs('TPOST',['POST']);
 
 
-db.USER.findOne({
-		query: { userName:"test" }
-	},function(err,doc){
-		console.log(doc.ProfileName);
+db.POST.save({title:"第一篇的文章",date:"Nov. 15",author:"MacTaylor",post:"今天是好日子，為啥不去駁二動漫祭?"}
+                );
+
+db.POST.find(function(err,doc){
+    console.log(doc);
 });
 
 
