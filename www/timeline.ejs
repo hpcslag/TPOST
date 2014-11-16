@@ -4,6 +4,20 @@
 	<title>TimeLine</title>
 </head>
 <body>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'tpost2147'; // required: replace example with your forum shortname
+        var disqus_identifier = '2583573025';
+        var disqus_title = 'demo'; //Setting Disqus commit id
+        var disqus_url = "http://youtop168.com/catch"; //Setting Disqus independently url
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <div class="nag">
         <form name="posts" method="post" action="/New_Article">
             Title: <input type="text" name="title"><br />
@@ -12,7 +26,6 @@
         </form>
         <hr>
     </div>
-    
     <% for(var i=0;i<list.length;i++) {%>
         <div class="article">
             <h1><%= list[i].title%></h1>
@@ -24,6 +37,6 @@
             </div>
         </div>
     <% } %>
-    
+    <div id="disqus_thread"></div>
 </body>
 </html>

@@ -198,7 +198,7 @@ exports.New_Article = function(req,res){
         /*Check and write in database*/
         var title = req.body.title;
         var post = req.body.post;
-        if(title.toString().length < 1 && post.toString().length < 1){
+        if(title.toString().length < 1 && post.toString().length < 5){
             var html = '<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Article Dead</title></head><body><p>"Article text must be greater than one, regardless of the title or the text"</p><p>"文章的文字必須大於一，無論標題或是內文"</p><p>"記事のテキストは、タイトルまたはテキストに関係なく、1より大きくなければならない"</p><script>alert("Article text must be greater than one, regardless of the title or the text"); window.location.href = "/timeline";</script></body></html>';
             res.send(html);
             //res.redirect('/timeline');
