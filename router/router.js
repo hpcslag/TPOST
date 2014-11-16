@@ -76,7 +76,22 @@ exports.POSTRegister = function(req,res){
         //if UsersDB.username is undefined
             //new account
     if(req.body.username != "test" && req.body.password.length > 5){
-        res.send("OK! Now You Register, Welcome! "+req.body.name+" and "+req.body.username+" and "+ req.body.password);
+        /*Need check is Override or have this id!*/
+        var username = encode.encode(req.body.username.toLowerCase()),
+            password = md5(encode.encode(req.body.password.toLowerCase()));
+        db.USER.findOne({
+            query: {userName:username.toString()}
+        },function(err,doc){
+            if(doc != null){
+                db.close();
+                var html = '<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Article Dead</title></head><body><p>"Username overlap"</p><p>"使用者帳號重疊"</p><p>"ユーザー名の重複"</p><script>alert("Username is overlap!"); window.location.href = "/register";</script></body></html>';
+                res.send(html);
+            }else{
+                db.USER.save(
+                {userName:username.toString(),password:password.toString(),ProfileName:req.body.name.toString()});
+                res.redirect('/login');
+            }
+        });
     }else{
         res.redirect('/register.html?grenade=dead');
     }
